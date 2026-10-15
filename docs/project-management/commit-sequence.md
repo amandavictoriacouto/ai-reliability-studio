@@ -9,6 +9,7 @@ Changes reach `main` only through pull requests from feature branches, using Con
 3. `ci: add issue templates, PR template, CODEOWNERS and labels`
 4. `ci: add dependabot for GitHub Actions`
 5. `ci: add docs workflow (markdown lint, internal links, secret scan)`
+6. `docs: format existing README to pass markdown lint`
 
 ## PR 2 — `docs/m0-architecture` → PR 1: "docs(architecture): MVP architecture, ADRs, security and governance"
 
