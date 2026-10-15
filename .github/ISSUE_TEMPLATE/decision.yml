@@ -1,0 +1,15 @@
+name: Product decision
+description: A product or scope decision that needs the product owner's approval
+labels: ["type:decision", "status:needs-decision"]
+body:
+  - type: textarea
+    id: question
+    attributes: { label: Question }
+    validations: { required: true }
+  - type: textarea
+    id: options
+    attributes: { label: Options and consequences, description: "Mark the recommended option." }
+    validations: { required: true }
+  - type: textarea
+    id: outcome
+    attributes: { label: Decision (filled on approval) }

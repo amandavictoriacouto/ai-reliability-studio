@@ -1,0 +1,14 @@
+name: Risk / threat
+description: A product, security or delivery risk to track (not for vulnerabilities)
+labels: ["type:security"]
+body:
+  - type: textarea
+    id: threat
+    attributes: { label: Threat or risk description }
+    validations: { required: true }
+  - type: dropdown
+    id: priority
+    attributes: { label: Priority, options: [High, Medium, Low] }
+  - type: textarea
+    id: mitigation
+    attributes: { label: Proposed mitigation }

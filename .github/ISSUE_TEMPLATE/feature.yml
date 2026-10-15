@@ -1,0 +1,18 @@
+name: Feature (user story)
+description: A user-facing capability with acceptance criteria
+labels: ["type:feature"]
+body:
+  - type: textarea
+    id: story
+    attributes: { label: User story, description: "As a <persona>, I want <capability> so that <outcome>." }
+    validations: { required: true }
+  - type: textarea
+    id: ac
+    attributes: { label: Acceptance criteria, description: "Testable criteria, one per line." }
+    validations: { required: true }
+  - type: textarea
+    id: risk
+    attributes: { label: Security, privacy & AI considerations }
+  - type: textarea
+    id: refs
+    attributes: { label: References (PRD section, ADR, threat IDs) }
