@@ -1,0 +1,6 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: weekly }
+  # npm and pip ecosystems are added when apps/web and apps/api are scaffolded (M0.5).
