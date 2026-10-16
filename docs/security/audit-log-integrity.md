@@ -51,7 +51,7 @@ A scheduled job runs verification daily for all workspaces and alerts on failure
 
 - Events store **pseudonymous actor IDs**, not names or emails. The identity mapping lives in a separate, mutable table.
 - Payloads store **digests**, not content. Free text such as justifications is stored in the entity tables, with only its hash in the event.
-- An LGPD erasure request deletes the identity mapping and the free-text fields. The chain stays verifiable, and the events become pseudonymous.
+- A valid LGPD erasure request, where no legal hold or retention obligation applies ([evidence model](../architecture/evidence-model.md) §5.4), deletes the identity mapping and the free-text fields. The chain stays verifiable, and the events become pseudonymous.
 
 ## 7. Tests
 

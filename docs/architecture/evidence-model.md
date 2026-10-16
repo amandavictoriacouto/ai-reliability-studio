@@ -50,7 +50,7 @@ The bucket is private. No public URLs. Pre-signed URLs are not logged in full.
 
 `quarantined → active → stale (valid_until passed) → superseded → deleted (tombstone)`. `legal_hold` can be applied to any state and blocks deletion.
 
-### 5.2 Retention defaults (to be confirmed, D14)
+### 5.2 Retention defaults (to be confirmed, D14; subject to §5.4)
 
 | Data | Default | Configurable |
 |---|---|---|
@@ -65,16 +65,31 @@ A scheduled job applies retention. Deletion produces a tombstone.
 
 | Trigger | What happens |
 |---|---|
-| **Accidental upload** of secrets or personal data | An admin deletes the content with a justification. The object is removed, and the row becomes a **tombstone** that keeps `id`, `sha256`, `size`, `type`, deleter, reason and time. Decisions that referenced it show "evidence redacted". The audit chain stays verifiable, because it only ever contained hashes. |
-| **Retention expiry** | The object is deleted automatically, a tombstone is kept and an audit event is emitted. |
-| **Data subject request (LGPD Art. 18)** | Content containing that person's data is deleted or redacted (a new redacted version supersedes the old one). Identity data in audit events is pseudonymized ([audit log integrity](../security/audit-log-integrity.md) §6). |
+| **Accidental upload** of secrets or personal data | An admin deletes the content with a justification (if a legal hold covers it, access is restricted instead and the hold owner decides). The object is removed, and the row becomes a **tombstone** that keeps `id`, `sha256`, `size`, `type`, deleter, reason and time. Decisions that referenced it show "evidence redacted". The audit chain stays verifiable, because it only ever contained hashes. |
+| **Retention expiry** | The object is deleted automatically unless a legal hold applies, a tombstone is kept and an audit event is emitted. |
+| **Data subject request (LGPD Art. 18)** | Handled per the precedence rules in §5.4. If the request is valid and no retention obligation or legal hold applies to the data, content containing that person's data is deleted or redacted (a new redacted version supersedes the old one) and identity data in audit events is pseudonymized ([audit log integrity](../security/audit-log-integrity.md) §6). Data that must be retained is minimized, access-restricted and deleted when the obligation ends. |
 | **Workspace deletion** | 30-day grace period (recoverable), then crypto-shredding of the workspace DEK, object deletion, database rows deleted except tombstones, and the workspace's audit chain is exported to the owner before final removal. |
 | **Backups** | Backups expire after at most 35 days. Crypto-shredding makes evidence in older backups unreadable. |
+
+### 5.4 Precedence: legal holds, retention obligations and erasure requests
+
+A deletion request does **not** automatically override lawful retention. LGPD Art. 18 (VI) itself excludes the cases in Art. 16, which allow retention for compliance with a legal or regulatory obligation, among others. Conflicts are resolved in this order, highest first:
+
+| # | Rule | Effect |
+|---|---|---|
+| 1 | **Legal hold** (litigation, regulator or court order, investigation) | Blocks deletion of the covered items until the hold is released. Conflicting erasure requests are recorded, the requester is informed as the law requires, and the request is executed when the hold ends. |
+| 2 | **Legal or regulatory retention obligation** that applies to specific data | That data is kept only for the required period, minimized (redact what is not needed), and access-restricted to the roles that need it. Everything else in the request is erased. |
+| 3 | **Valid erasure request** (identity and scope verified, no rule 1 or 2 applies) | Overrides workspace-configured and default retention periods. |
+| 4 | **Workspace or default retention settings** (§5.2) | Apply when none of the above does. |
+
+- The **workspace (the controller of its data) decides** whether a request is valid and whether an obligation applies. The Studio records the decision, the decider, the legal basis cited and the affected items as audit events, and never decides legal questions automatically.
+- Legal holds and retention exceptions have an owner, a reason, a scope and a review date. A hold without a review date is flagged.
+- The Studio provides workflow and evidence for these decisions; it does **not** provide legal advice. These rules need legal review before any production use.
 
 **Tension, made explicit:** write-once storage and legal deletion requirements conflict. We resolve this by using object lock in **governance** mode, not compliance mode. Only the audited deletion service can delete, and every deletion leaves a tombstone. This preserves tamper-*evidence* (any deletion is visible) without promising tamper-*proof* retention.
 
 ## 6. Tests
 
-All automated: hash computed server-side (client hash ignored); overwrite attempt by the app role fails; deletion without the deletion service fails; a tombstone keeps the hash while the content is unavailable; a cross-tenant key access attempt fails; a pre-signed URL expires; a quarantine blocks linking; retention job behavior; re-verification detects a modified object (fault injection).
+All automated: hash computed server-side (client hash ignored); legal hold blocks retention deletion and erasure; an erasure request on data under a retention exception deletes only the non-retained items; precedence order of §5.4; overwrite attempt by the app role fails; deletion without the deletion service fails; a tombstone keeps the hash while the content is unavailable; a cross-tenant key access attempt fails; a pre-signed URL expires; a quarantine blocks linking; retention job behavior; re-verification detects a modified object (fault injection).
 
 Human review: bucket policy and key-management configuration, per environment, at each milestone.
