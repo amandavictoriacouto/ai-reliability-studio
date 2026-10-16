@@ -76,10 +76,17 @@ A product team about to ship an LLM-powered feature cannot answer, in one place 
 ### E5 — Verification & evidence
 
 - **US5.1** Automated verifier **GitHub repository posture**: branch protection on default branch, required reviews, secret scanning / Dependabot alerts enabled, CI workflow present (read-only GitHub App or fine-grained token).
-- **US5.2** Automated verifier **LLM endpoint probe suite**: runs a fixed, versioned set of probes (direct/indirect prompt injection, system-prompt leakage, PII echo, unbounded output) against a user-registered endpoint in a sandboxed worker; result with per-probe transcripts as evidence.
-  - AC: endpoint must be verified as owned (token/header challenge) before probing; network egress restricted (see threat model).
+- **US5.2** Automated verifier **LLM endpoint probe suite**: runs a fixed, versioned set of probes (direct/indirect prompt injection, system-prompt leakage, PII echo, unbounded output) against a user-registered endpoint from the isolated **verifier runner**; result with per-probe transcripts as evidence.
+  - AC: ownership of the exact host is proven by a **DNS TXT record** (`_ars-verify.<host>`) or an **HTTPS well-known file** (`/.well-known/ars-verify.txt`) containing a single-use token; verification expires after 30 days and is re-checked before a run if older than 24 h ([endpoint verifier security](../security/endpoint-verifier-security.md) §2.2).
+  - AC: an `owner`, `admin` or `security` user explicitly authorizes probing after recent authentication; probing is refused for unverified, unauthorized, expired or revoked endpoints.
+  - AC: the runner has no database or storage credentials and receives work only through short-lived, job-scoped leases ([Job-Lease API](../architecture/job-lease-api.md)); egress goes through the SSRF-controlled proxy with IP pinning and no redirects.
 - **US5.3** Manual evidence upload (PDF, PNG, MD, JSON ≤ 10 MB) and **attestations** (signed human statement). Attestations are always displayed as "attested", never "verified".
 - **US5.4** Evidence has a validity window; expired evidence makes the verification "stale".
+- **US5.5** **GitHub Actions CI-results import (minimal):** a step in the customer's workflow uploads dependency-vulnerability and secret-scan results (SARIF or a documented JSON summary) for the current run, so the related controls can be verified.
+  - AC: the upload is authenticated with a **GitHub Actions OIDC token** from a repository bound to the release; the API records `repository_id`, `workflow_ref`, `run_id`, `run_attempt` and the commit, resolving the pull request **head SHA** the same way as the gate ([release gate binding](../architecture/release-gate-binding.md) §1.1).
+  - AC: the GitHub App confirms that the run exists in that repository, belongs to that commit and has completed; results whose provenance cannot be confirmed are labelled `client-asserted` and stay `not_verified` unless a policy explicitly accepts them.
+  - AC: the API hashes the uploaded file itself and stores it as `commit`-bound evidence; the summary shows tool name and version, counts by severity, and the run link.
+  - Out of scope for v0.1: other CI systems, SAST/DAST imports beyond these two result types, and parsing arbitrary tool formats.
 
 ### E6 — Mitigation backlog
 
@@ -88,8 +95,10 @@ A product team about to ship an LLM-powered feature cannot answer, in one place 
 ### E7 — Review, approval & release gate
 
 - **US7.1** Workspace admins define a policy (YAML), e.g. "block if any accepted risk with residual ≥ 15 has an unverified control; require Security approval for residual ≥ 10".
-- **US7.2** A GitHub Action calls the Gate API with release + commit SHA and gets pass / fail / needs-approval, a summary, and a link to details; posted as a Check Run.
-  - AC: decision bound to commit SHA, policy version and evidence snapshot; expires after configurable TTL; replay for another SHA fails.
+- **US7.2** A GitHub Action calls the Gate API with the `release_id` and a **GitHub Actions OIDC token**, and gets pass / fail / needs-approval, a summary, and a link to details; the result is posted by the GitHub App as a Check Run.
+  - AC: repository and commit come from the signed OIDC token, never from the request body; for pull requests the API resolves the **head SHA** from the merge commit and the pull request via the GitHub App ([release gate binding](../architecture/release-gate-binding.md) §1.1).
+  - AC: decision bound to the head SHA, policy version and digest, and evidence snapshot digest; signed (Ed25519 JWS); expires after a configurable TTL; replay for another SHA fails.
+  - AC: the Check Run is created on the head SHA so branch protection can require it; `pull_request_target` and unbound repositories are rejected; a scoped API token is accepted only as a labelled fallback (`subject_assertion: client`).
 - **US7.3** Authorized override with mandatory justification, recorded as an Approval.
 
 ### E8 — Audit trail & reporting

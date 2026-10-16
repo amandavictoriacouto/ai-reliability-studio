@@ -56,7 +56,7 @@ Product teams decide *what* ships and *when*, but risk work usually happens else
 | AI-Assisted Risk Discovery | ✅ Catalog-grounded suggestions, human accept/reject | Agentic discovery over repos/docs |
 | Risk Assessment | ✅ Likelihood × impact, rationale, residual risk | Quantitative models, portfolio views |
 | Control Mapping | ✅ Own control catalog mapped to OWASP LLM 2025, NIST AI RMF, ISO 42001/27001 *references*, LGPD articles | EU AI Act classification assistant, more frameworks |
-| Automated Control Verification | ✅ 2 verifier types: GitHub repo posture + LLM endpoint probe suite | IaC, cloud, SAST/DAST imports |
+| Automated Control Verification | ✅ 2 verifier types: GitHub repo posture + LLM endpoint probe suite; minimal GitHub Actions CI-results import (dependency and secret scans) with verified provenance | IaC, cloud, broader SAST/DAST imports |
 | Evidence Management | ✅ Automated + uploaded + attestations, SHA-256, expiry | Evidence reuse across frameworks, auditor portal |
 | Mitigation Backlog | ✅ Mitigation items, export to GitHub Issues | Two-way sync Jira/Linear |
 | Human Review & Approval | ✅ Role-based approval of risks and releases | Multi-step workflows, delegation |
