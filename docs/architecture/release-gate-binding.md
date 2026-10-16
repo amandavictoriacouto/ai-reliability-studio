@@ -11,7 +11,9 @@ A gate decision is computed over this tuple. Every element is recorded in the de
 |---|---|---|
 | `workspace_id`, `product_id`, `release_id` | Release configuration | The release is linked to one repository |
 | `repository_id` + `repository` | **GitHub OIDC token claims** | The numeric ID guards against repository renames or transfers |
-| `commit_sha` | **GitHub OIDC token `sha` claim** | Full 40-hex SHA; short SHAs are rejected |
+| `event_name`, `oidc_sha` | **GitHub OIDC token** `event_name` and `sha` claims | Full 40-hex SHA; short SHAs are rejected. For `pull_request` events this is the **ephemeral merge commit** of `refs/pull/N/merge`, not the commit the developer pushed |
+| `head_sha` | Resolved by the API (§1.1) | The commit that evidence, approvals and the Check Run are bound to. The decision's **subject commit** |
+| `merge_sha`, `base_sha`, `pull_number` | Resolved by the API (§1.1) | Recorded for pull request events only |
 | `ref`, `workflow_ref`, `run_id`, `run_attempt` | GitHub OIDC token claims | Context, used in the audit trail |
 | `policy_id`, `policy_version`, `policy_digest` | Policy store | `policy_digest` = SHA-256 of the canonical policy document |
 | `catalog_version` | Catalog store | Version of risk/control catalog used |
@@ -19,6 +21,20 @@ A gate decision is computed over this tuple. Every element is recorded in the de
 | `engine_version` | Build metadata | Version of the policy engine code |
 
 **Key property:** the commit and repository come from a **GitHub-signed OIDC token**, not from the request body. A workflow cannot ask for a decision about a commit it is not running on.
+
+### 1.1 Resolving the subject commit (`head_sha`)
+
+On `pull_request` events, GitHub runs the workflow on a temporary merge commit, so the OIDC `sha` claim (and `GITHUB_SHA`) is the merge SHA. Branch protection and reviewers, however, look at the pull request **head** commit. Binding the decision to the merge SHA would attach evidence, approvals and the Check Run to a commit nobody pushed. The API therefore resolves the head commit itself and never trusts a SHA from the request body:
+
+| Event (OIDC `event_name`) | OIDC `ref` | `head_sha` resolution |
+|---|---|---|
+| `push`, `workflow_dispatch`, `release` | `refs/heads/…` or `refs/tags/…` | `head_sha = oidc_sha` |
+| `pull_request` | `refs/pull/N/merge` | The **GitHub App** (installation scoped to the bound `repository_id`) reads commit `oidc_sha`. It must have exactly two parents; `base_sha = parents[0]`, `head_sha = parents[1]`. It then reads pull request `N` in the same `repository_id` and requires `pull.head.sha == head_sha` and `pull.base.sha == base_sha` |
+| `pull_request_target`, `workflow_run`, any other event | — | **Rejected.** These events run with the base branch's workflow and secrets and cannot be bound safely in the MVP |
+
+- If the pull request head moved after the workflow started (`pull.head.sha != head_sha`), the request is rejected as `stale_head` and no decision is issued. The new push triggers a new run.
+- Pull requests from forks are rejected unless the repository binding explicitly allows them, because fork workflows cannot request OIDC tokens with write context and their head commits are not under the workspace's control.
+- The resolution result (`merge_sha`, `base_sha`, `head_sha`, `pull_number`) is part of the signed decision subject and of `inputs_digest`.
 
 ## 2. Authenticating the CI request
 
@@ -44,7 +60,7 @@ At evaluation time the engine collects, for every control in scope of the releas
 
 | Binding | Meaning | Valid for this decision when |
 |---|---|---|
-| `commit` | Evidence produced for a specific commit (e.g., probe run against a preview deployment that reports this SHA, CI test report for this SHA) | `evidence.commit_sha == decision.commit_sha` |
+| `commit` | Evidence produced for a specific commit (e.g., probe run against a preview deployment that reports this SHA, CI test report for this SHA) | `evidence.commit_sha == decision.head_sha`. For pull request events, evidence recorded against `merge_sha` is also accepted only if the policy allows it and it is labelled as merge-bound in the decision reasons |
 | `release` | Evidence about the release scope regardless of commit (e.g., DPIA document, human design review) | Same `release_id` and not expired |
 | `time` | Point-in-time state (e.g., repository posture) | `collected_at` within the policy's freshness window and not expired |
 
@@ -89,16 +105,20 @@ sequenceDiagram
   participant APP as GitHub App
   WF->>ACT: run
   ACT->>GH: request id-token (aud=ai-reliability-studio)
-  GH-->>ACT: signed JWT (repository_id, sha, ref, run_id)
+  GH-->>ACT: signed JWT (repository_id, sha, ref, event_name, run_id)
   ACT->>API: POST /gate/evaluate (Bearer OIDC JWT, release_id)
-  API->>API: verify JWT, binding, snapshot evidence, evaluate policy, sign
+  API->>API: verify JWT and repository binding
+  API->>APP: resolve head_sha (merge commit parents, pull request N)
+  APP-->>API: head_sha, base_sha
+  API->>API: snapshot evidence for head_sha, evaluate policy, sign
   API-->>ACT: decision + JWS
-  ACT->>ACT: verify JWS (JWKS), check sha==GITHUB_SHA, repo, expiry
-  API->>APP: create Check Run on sha (summary, link)
+  ACT->>ACT: verify JWS (JWKS), check oidc_sha==GITHUB_SHA, repo, expiry
+  API->>APP: create Check Run on head_sha (summary, link)
   ACT-->>WF: exit 0 (pass/pass_with_override) or 1 (fail/needs_approval)
 ```
 
 - Branch protection must require the **Check Run** posted by the GitHub App, not just the workflow step. A modified workflow cannot spoof that check, because only our App can post it.
+- The Check Run is always created on **`head_sha`**, because GitHub evaluates required checks on the pull request head commit. A check on the merge SHA would never satisfy branch protection.
 - **Failure mode:** if the API is unreachable, the gate fails **closed** by default. A policy may opt into fail-open for non-protected branches. Break-glass overrides are audited.
 
 ## 8. Independent verification
@@ -113,7 +133,7 @@ sequenceDiagram
 
 ## 9. Tests
 
-All automated: replay with another SHA (must fail), tampered snapshot (digest mismatch), expired decision, policy changed after decision (old decision unchanged), approval bound to another decision (rejected), OIDC token from an unbound repository (rejected), JWS with an unknown `kid` (rejected), API-down behavior (fail-closed).
+All automated: replay with another SHA (must fail), `pull_request` run where the decision, evidence lookup and Check Run all use `head_sha` (not the merge SHA), merge commit whose second parent differs from the pull request head (rejected), head moved during the run (`stale_head`), `pull_request_target` event (rejected), fork pull request without opt-in (rejected), tampered snapshot (digest mismatch), expired decision, policy changed after decision (old decision unchanged), approval bound to another decision (rejected), OIDC token from an unbound repository (rejected), JWS with an unknown `kid` (rejected), API-down behavior (fail-closed).
 
 ## 10. Limits
 
