@@ -94,4 +94,4 @@ A scheduled job runs verification daily for all workspaces and alerts on failure
 - A rewritten chain with an unchanged checkpoint fails verification; deleting chain **and** checkpoints is detected only against an external export (this test documents the phase 1 limit).
 - The export round-trip verifies.
 
-**Human review:** database role grants and the KMS key policy, at each milestone.
+**Human review:** database role grants and the access policy of the checkpoint signing key (secret store in phase 1), at each milestone.

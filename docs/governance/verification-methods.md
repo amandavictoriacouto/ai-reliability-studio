@@ -38,7 +38,7 @@
 | Tenant isolation (SR-01) | Generated cross-tenant API tests; RLS coverage test; role-grant test | Migrations touching roles, grants and `SECURITY DEFINER` functions | — |
 | SSRF protection (SR-02) | Unit tests on URL/IP validation; integration tests on rebinding, redirects and size limits; egress smoke test per environment | Network/egress configuration per environment | — |
 | Gate binding & signatures (SR-03) | Replay, tamper, expiry, wrong-repo and unknown-key tests | Key-management configuration | Key rotation runbook |
-| Audit log integrity (SR-04) | Tamper and truncation tests; daily chain verification job | DB grants, KMS key policy | — |
+| Audit log integrity (SR-04) | Tamper and truncation tests, including the documented D15 phase 1 limit; daily chain verification job | DB grants; access policy of the checkpoint signing key (secret store, or KMS where a free tier offers one) | — |
 | Evidence immutability (SR-05) | Overwrite/delete-denied tests; re-hash job | Bucket policy per environment | Retention policy |
 | GitHub App least privilege (SR-06) | Manifest permission check in CI | App permission changes | — |
 | LLM safety of our own AI features (SR-07) | Eval suite: schema validity, catalog-only IDs, injection cases (rates + sample size) | Prompt changes and eval result review per PR | Prompt/version changelog |
