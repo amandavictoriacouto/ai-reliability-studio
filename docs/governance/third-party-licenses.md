@@ -38,7 +38,7 @@ Licenses for packages were read from the npm and PyPI registry metadata on 2026-
 | MinIO † | Local S3-compatible storage (dev only) | AGPL-3.0 | Yes, as a separate local service | Used only as an unmodified container in local Docker Compose; never distributed, linked or offered as a network service by this project. Replace with another S3-compatible store if that changes |
 | Jaeger †, OWASP ZAP †, Trivy † | Local tracing, DAST, image scanning | Apache-2.0 | Yes | Tools and separate services |
 | gitleaks †, lychee † | Docs CI | MIT; Apache-2.0 OR MIT | Yes | |
-| GitHub Actions used in CI (`actions/checkout`, `DavidAnson/markdownlint-cli2-action`, `lycheeverse/lychee-action`, `gitleaks/gitleaks-action`) † | CI only | Per action repository | Yes, not distributed | Pinned by commit SHA. `gitleaks-action` requires a free license key for organization-owned repositories; this repository is user-owned, so none is needed today |
+| GitHub Actions used in CI (`actions/checkout`, `DavidAnson/markdownlint-cli2-action`, `lycheeverse/lychee-action`, `gitleaks/gitleaks-action`) † | CI only | Per action repository | Yes, not distributed | Pinned by full-length commit SHA. The repository's Actions settings allow only GitHub-created actions and these three third-party actions, and require SHA pinning. `gitleaks-action` requires a free license key for organization-owned repositories; this repository is user-owned, so none is needed today |
 
 **Result:** no incompatibility found for the planned stack. Two items need care: psycopg (LGPL, keep it an unmodified dependency) and MinIO (AGPL, local development only).
 
