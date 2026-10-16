@@ -24,10 +24,10 @@ Every result states which requirements were verified, how, when, and by which ev
 | Area | Documents |
 |---|---|
 | Product | [Product brief](docs/product/product-brief.md) · [Competitive discovery](docs/product/competitive-discovery.md) · [Discovery track](docs/product/discovery-track.md) · [PRD v0.1](docs/product/prd-v0.1.md) · [Decisions & open questions](docs/product/decisions-and-open-questions.md) |
-| Architecture | [MVP architecture](docs/architecture/mvp-architecture.md) · [Release gate binding](docs/architecture/release-gate-binding.md) · [Evidence model](docs/architecture/evidence-model.md) · [ADRs](docs/adr/README.md) |
+| Architecture | [MVP architecture](docs/architecture/mvp-architecture.md) · [Release gate binding](docs/architecture/release-gate-binding.md) · [Evidence model](docs/architecture/evidence-model.md) · [Job queue & Job-Lease API](docs/architecture/job-lease-api.md) · [ADRs](docs/adr/README.md) |
 | Security | [Threat model](docs/security/threat-model.md) · [Endpoint verifier security](docs/security/endpoint-verifier-security.md) · [Tenant isolation & authZ](docs/security/tenant-isolation-and-authz.md) · [Audit log integrity](docs/security/audit-log-integrity.md) · [Security policy](SECURITY.md) |
 | Delivery | [Roadmap](docs/roadmap.md) · [Implementation plan](docs/engineering/implementation-plan.md) · [Repository organization](docs/engineering/repository-organization.md) |
-| Governance | [Assurance language](docs/governance/assurance-language.md) · [Verification methods](docs/governance/verification-methods.md) · [Framework references & licensing](docs/governance/framework-references.md) |
+| Governance | [Assurance language](docs/governance/assurance-language.md) · [Verification methods](docs/governance/verification-methods.md) · [Framework references & licensing](docs/governance/framework-references.md) · [Third-party licenses](docs/governance/third-party-licenses.md) |
 
 ## Language
 
@@ -47,4 +47,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
 ## License
 
-To be defined (decision Q1 in [decisions & open questions](docs/product/decisions-and-open-questions.md)). Catalog content licensing: [LICENSE-CONTENT.md](LICENSE-CONTENT.md).
+[Apache License 2.0](LICENSE) (decision Q1). Copyright notice: [NOTICE](NOTICE). Catalog and third-party content licensing: [LICENSE-CONTENT.md](LICENSE-CONTENT.md) and [third-party license compatibility](docs/governance/third-party-licenses.md).
+
+This is a non-commercial, educational, open-source portfolio project (decision Q6).

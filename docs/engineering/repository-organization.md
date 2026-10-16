@@ -7,7 +7,8 @@
 ```text
 ai-reliability-studio/
 ├─ README.md                  # pitch, demo GIF, architecture diagram, quickstart, limitations
-├─ LICENSE                    # code license (see Q-B1)
+├─ LICENSE                    # Apache-2.0 (decision Q1)
+├─ NOTICE                     # copyright notice
 ├─ LICENSE-CONTENT.md         # licensing of catalog content & third-party references
 ├─ SECURITY.md                # vulnerability disclosure policy
 ├─ CONTRIBUTING.md  CODE_OF_CONDUCT.md  CHANGELOG.md

@@ -15,7 +15,7 @@
 | # | Increment | Output | Needs approval |
 |---|---|---|---|
 | 0.1 | Approve planning package (`docs/`) | Decisions log updated | ✅ |
-| 0.2 | Repo exists (public). Add license, README, governance files | Repo foundation | ✅ (license) |
+| 0.2 | Repo exists (public). Add Apache-2.0 `LICENSE` and `NOTICE`, README, governance files | Repo foundation | ✅ Q1 approved 2026-10-16; `LICENSE` in PR 1 |
 | 0.3 | Commit M0 docs into `docs/` + ADR-0001…016 as *Proposed* → *Accepted* | Docs PR | ✅ |
 | 0.4 | Labels, milestones, issue/PR templates, Project board, branch protection | GitHub setup | — |
 | 0.5 | Monorepo scaffold: `apps/api` (FastAPI hello + health), `apps/web` (Next.js shell), Docker Compose, Makefile | Runnable skeleton | — |
@@ -25,7 +25,7 @@
 
 ## M1 — Walking skeleton
 
-1.1 Postgres + SQLAlchemy + Alembic + Testcontainers · 1.2 Identity: OIDC login, workspaces, memberships, RBAC matrix tests · 1.3 RLS + cross-tenant tests · 1.4 Audit module (hash chain, verify CLI) · 1.5 Context: products, releases, versioned system profile + UI wizard · 1.6 OTel across web/api · 1.7 Deploy pipeline to chosen host + preview environments · 1.8 Playwright golden path.
+1.1 Postgres + SQLAlchemy + Alembic + Testcontainers · 1.2 Identity: Auth.js login with BFF (Q5, ADR-0009), workspaces, memberships, RBAC matrix tests · 1.3 RLS + cross-tenant tests · 1.4 Audit module (hash chain, verify CLI) · 1.5 Context: products, releases, versioned system profile + UI wizard · 1.6 OTel across web/api · 1.7 Deploy pipeline to free-tier hosts per ADR-0016 (Q6), with preview environments; no paid service and no deploy without explicit approval · 1.8 Playwright golden path.
 
 ## M2 — Risk discovery & assessment
 
@@ -33,20 +33,20 @@
 
 ## M3 — Controls, evidence & mitigation
 
-3.1 Control catalog v0 (~30 controls) + mappings · 3.2 Auto-proposal of controls from accepted risks · 3.3 Evidence store (S3/MinIO, SHA-256, write-once, expiry) · 3.4 Upload hardening · 3.5 Attestations · 3.6 Mitigation backlog + GitHub Issues export · 3.7 Dogfood: load the Studio's own threat model.
+3.1 Control catalog v0 (~30 controls) + mappings · 3.2 Auto-proposal of controls from accepted risks · 3.3 Evidence store (S3/MinIO, SHA-256, write-once, expiry; legal hold, retention and erasure precedence per the evidence model §5.4) · 3.4 Upload hardening · 3.5 Attestations · 3.6 Mitigation backlog + GitHub Issues export · 3.7 Dogfood: load the Studio's own threat model.
 
 ## M4 — Automated verification
 
-4.1 Verifier plugin interface + run lifecycle · 4.2 GitHub App (read-only) + posture verifier · 4.3 SSRF guard library + tests · 4.4 Endpoint registration + ownership challenge · 4.5 LLM probe suite v0 (≈ 15 probes) + transcript evidence · 4.6 Verification UI with verified/attested/failed/not-verified states.
+4.1 Verifier plugin interface + run lifecycle; queue roles and Job-Lease API for the isolated verifier runner · 4.2 GitHub App (read-only) + posture verifier · 4.3 SSRF guard library + tests · 4.4 Endpoint registration + ownership proof (DNS TXT or HTTPS well-known file) + authorization · 4.5 LLM probe suite v0 (≈ 15 probes) + transcript evidence · 4.6 Verification UI with verified/attested/failed/not-verified states.
 
 ## M5 — Gate & reporting (MVP v0.1.0)
 
-5.1 Policy YAML schema + engine + regression scenarios · 5.2 Approvals & overrides (re-auth) · 5.3 Gate API with decision binding + signature · 5.4 GitHub Action + Check Run · 5.5 Release Assurance Report (web + MD/PDF) with limitations block · 5.6 Gate the Studio's own CI · 5.7 ZAP baseline + threat-model review · 5.8 Release, demo video, case study.
+5.1 Policy YAML schema + engine + regression scenarios · 5.2 Approvals & overrides (re-auth) · 5.3 Gate API with GitHub OIDC, head-SHA resolution via the GitHub App, decision binding + signature · 5.4 GitHub Action + Check Run on the head SHA · 5.4b GitHub Actions CI-results import with verified provenance (PRD US5.5) · 5.5 Release Assurance Report (web + MD/PDF) with limitations block · 5.6 Gate the Studio's own CI · 5.7 ZAP baseline + threat-model review · 5.8 Release, demo video, case study.
 
 ## M6 — Continuous assurance
 
 6.1 Scheduler for re-verification · 6.2 Evidence expiry & stale states · 6.3 Notifications (email/Slack) · 6.4 Trend dashboard.
 
-## Approvals needed before M0.2+
+## Approvals still needed
 
-See [`docs/product/decisions-and-open-questions.md`](../product/decisions-and-open-questions.md) → decisions D1–D10 and questions Q1–Q8.
+See [`docs/product/decisions-and-open-questions.md`](../product/decisions-and-open-questions.md). Approved: Q1, Q3, Q4, Q5, Q6 and the F1–F7 corrections. Pending: decisions D1–D17, questions Q2 and Q7–Q9, and acceptance of the final text of ADR-0001…0016.
