@@ -13,3 +13,7 @@
 1. Every mapping cites the reference identifier and version.
 2. Dates and obligations are data in `catalog/`, with `source_url` and `verified_on` fields.
 3. Changes to `catalog/` and `catalog/policies/` require code-owner review.
+
+## Relation to the code license
+
+The repository's code is licensed under Apache-2.0 (decision Q1). Framework material keeps its own license and is never relicensed. Dependency licenses are tracked in [third-party license compatibility](third-party-licenses.md).
