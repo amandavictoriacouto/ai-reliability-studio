@@ -1,6 +1,6 @@
 # MVP Architecture
 
-> Status: **Draft for approval** · Each **ADR-xxx** below has a matching file in [`docs/adr/`](../adr/README.md) with status *Proposed*.
+> Status: **Draft for approval** · Each **ADR-xxx** below has a matching file in [`docs/adr/`](../adr/README.md). Nine ADRs needed for M1 were accepted on 2026-10-16; the others are *Proposed*.
 
 ## 1. Architectural drivers
 

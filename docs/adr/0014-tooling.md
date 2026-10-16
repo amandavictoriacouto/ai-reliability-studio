@@ -1,6 +1,6 @@
 # ADR-0014: Language tooling
 
-- Status: Proposed
+- Status: Accepted (2026-10-16, product owner)
 - Date: 2026-10-15
 - Updated: 2026-10-16 (incremental adoption; approved M1 simplification)
 - Deciders: product owner (@amandavictoriacouto)

@@ -1,6 +1,6 @@
 # ADR-0009: Authentication with Auth.js, BFF and GitHub OIDC for CI
 
-- Status: Proposed
+- Status: Accepted (2026-10-16, product owner)
 - Date: 2026-10-15
 - Updated: 2026-10-16 (Q5 approved; decision text rewritten, review finding F2; D16 approved; GitHub-only login in M1)
 - Deciders: product owner (@amandavictoriacouto)

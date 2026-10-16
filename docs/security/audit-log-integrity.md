@@ -1,6 +1,6 @@
 # Audit Log Integrity: Guarantees and Limits
 
-> Status: **Proposed** (architecture review, M0) · Related: [ADR-0008](../adr/0008-hash-chained-audit-log.md), [threat model](threat-model.md) T07, T08
+> Status: **Accepted** with ADR-0008 and D15 (phased), 2026-10-16 · Related: [ADR-0008](../adr/0008-hash-chained-audit-log.md), [threat model](threat-model.md) T07, T08
 > Purpose: state precisely what the hash-chained audit log guarantees, what it does **not**, and which additional controls close the gaps.
 
 ## 1. Design recap

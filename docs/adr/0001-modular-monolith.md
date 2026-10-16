@@ -1,6 +1,6 @@
 # ADR-0001: Modular monolith with an async worker
 
-- Status: Proposed
+- Status: Accepted (2026-10-16, product owner)
 - Date: 2026-10-15
 - Deciders: product owner (@amandavictoriacouto)
 - Related: [MVP architecture](../architecture/mvp-architecture.md), [threat model](../security/threat-model.md)

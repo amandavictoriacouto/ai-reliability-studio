@@ -1,6 +1,6 @@
 # ADR-0015: Docker Compose for local development
 
-- Status: Proposed
+- Status: Accepted (2026-10-16, product owner)
 - Date: 2026-10-15
 - Updated: 2026-10-16 (incremental services; approved M1 simplification)
 - Deciders: product owner (@amandavictoriacouto)

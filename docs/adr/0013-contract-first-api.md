@@ -1,6 +1,6 @@
 # ADR-0013: Code-first FastAPI with a generated OpenAPI contract and TypeScript client
 
-- Status: Proposed
+- Status: Accepted (2026-10-16, product owner)
 - Date: 2026-10-15
 - Updated: 2026-10-16 (clarified as code-first; incremental tooling; approved revision)
 - Deciders: product owner (@amandavictoriacouto)

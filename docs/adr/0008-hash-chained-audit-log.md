@@ -1,6 +1,6 @@
 # ADR-0008: Append-only, hash-chained audit log
 
-- Status: Proposed
+- Status: Accepted (2026-10-16, product owner)
 - Date: 2026-10-15
 - Updated: 2026-10-16 (hash formula aligned with the detailed design; per-workspace chains; phased D15 checkpoints; approved revision)
 - Deciders: product owner (@amandavictoriacouto)

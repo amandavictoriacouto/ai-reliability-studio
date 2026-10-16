@@ -1,6 +1,6 @@
 # Tenant Isolation, RLS and Frontend–Backend Authorization
 
-> Status: **Proposed** (architecture review, M0) · Related: [ADR-0003](../adr/0003-postgres-tenant-isolation.md), [ADR-0009](../adr/0009-authentication.md), [ADR-0010](../adr/0010-rbac.md), [threat model](threat-model.md) T02, T15, T17
+> Status: **Accepted** for the parts carried by ADR-0003, ADR-0009, ADR-0010 and D16 (2026-10-16). Queue and worker roles stay *Proposed* with ADR-0004 · Related: [ADR-0003](../adr/0003-postgres-tenant-isolation.md), [ADR-0009](../adr/0009-authentication.md), [ADR-0010](../adr/0010-rbac.md), [threat model](threat-model.md) T02, T15, T17
 
 ## 1. Review findings on the initial architecture
 

@@ -1,6 +1,6 @@
 # ADR-0003: PostgreSQL as system of record with row-level tenant isolation
 
-- Status: Proposed
+- Status: Accepted (2026-10-16, product owner)
 - Date: 2026-10-15
 - Updated: 2026-10-16 (explicit RLS requirements, roles, tenant context and tests; approved revision)
 - Deciders: product owner (@amandavictoriacouto)
