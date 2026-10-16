@@ -31,6 +31,7 @@ Changes reach `main` only through pull requests from feature branches, using Con
 15. `docs(security): phase audit checkpoints (D15) and state their limits`
 16. `docs(adr): clarify code-first API, GitHub-only M1 login and incremental tooling`
 17. `docs(security): align audit key review with phased D15 checkpoints`
+18. `docs(governance): note the repository's Actions allow-list and SHA pinning`
 
 ## PR 3 — `docs/m0-product` → PR 2: "docs(product): brief, discovery, PRD and roadmap"
 
@@ -56,6 +57,7 @@ Changes reach `main` only through pull requests from feature branches, using Con
 6. `docs: update README, plans and backlog for Q1, Q5, Q6 and F1–F7`
 7. `docs: align plan and backlog with D15, D16 and M1 simplifications`
 8. `docs: add project status overview to README`
+9. `docs(pm): list the Actions-settings note in commit sequence`
 
 ## After the documentation PRs (each after its decision)
 
