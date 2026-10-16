@@ -18,7 +18,7 @@ Lifecycle: **Proposed** (PR opened, labeled `type:adr`) → **Accepted** / **Rej
 | [ADR-0010](0010-rbac.md) | Role-based access control per workspace | Proposed |
 | [ADR-0011](0011-sandboxed-verifiers.md) | Sandboxed verifier execution | Proposed |
 | [ADR-0012](0012-opentelemetry.md) | OpenTelemetry for observability | Proposed |
-| [ADR-0013](0013-contract-first-api.md) | Contract-first REST API with generated client | Proposed |
+| [ADR-0013](0013-contract-first-api.md) | Code-first FastAPI with a generated OpenAPI contract and TypeScript client | Proposed |
 | [ADR-0014](0014-tooling.md) | Language tooling | Proposed |
 | [ADR-0015](0015-local-development.md) | Docker Compose for local development | Proposed |
 | [ADR-0016](0016-hosting.md) | Hosting target: free tiers for a non-commercial project (Q6 approved, text pending acceptance) | Proposed |

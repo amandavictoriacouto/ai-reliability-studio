@@ -2,7 +2,7 @@
 
 - Status: Proposed
 - Date: 2026-10-15
-- Updated: 2026-10-16 (Q5 approved; decision text rewritten, review finding F2)
+- Updated: 2026-10-16 (Q5 approved; decision text rewritten, review finding F2; D16 approved; GitHub-only login in M1)
 - Deciders: product owner (@amandavictoriacouto)
 - Related: [MVP architecture](../architecture/mvp-architecture.md), [threat model](../security/threat-model.md), [detailed design](../security/tenant-isolation-and-authz.md)
 
@@ -12,7 +12,7 @@ Users are product and engineering professionals; passwords add risk (T15). CI ne
 
 ## Decision
 
-1. **Login:** Auth.js in the Next.js app with GitHub and Google OIDC. No passwords are stored.
+1. **Login:** Auth.js in the Next.js app. **M1 ships GitHub sign-in only** (approved simplification, 2026-10-16); Google OIDC is added later without design changes. No passwords are stored.
 2. **Sessions:** server-side database sessions referenced by an `httpOnly`, `Secure`, `SameSite=Lax` cookie. Sessions can be revoked immediately. Session rotation on login and privilege change; idle and absolute timeouts.
 3. **BFF:** the browser never holds API tokens. Only the Next.js server calls the API, minting a per-request **identity-only** JWT (ES256, `aud=ars-api`, `sub`, `sid`, 60 s lifetime) with a key held only by the web server. The API is not reachable from browsers (no CORS).
 4. **Authorization:** the API loads membership and role from the database on every request (RBAC, [ADR-0010](0010-rbac.md)) and enforces tenant isolation with `SET LOCAL` and forced RLS ([ADR-0003](0003-postgres-tenant-isolation.md)). Frontend checks are UX only.

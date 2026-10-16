@@ -37,7 +37,7 @@ sequenceDiagram
   N-->>B: rendered page / JSON
 ```
 
-- **Login:** Auth.js with GitHub and Google OIDC (Q5 approved 2026-10-16; [ADR-0009](../adr/0009-authentication.md) remains Proposed until its text is accepted). Sessions are stored server-side (database sessions), so a session can be revoked immediately.
+- **Login:** Auth.js; GitHub sign-in in M1, Google later (Q5 and D16 approved 2026-10-16; [ADR-0009](../adr/0009-authentication.md) remains Proposed until its text is accepted). Sessions are stored server-side (database sessions), so a session can be revoked immediately.
 - **Service JWT:** minted per request by the Next.js server with an ES256 key that only the web server holds, valid for 60 seconds. The API trusts only this key, plus GitHub OIDC for the gate endpoint ([release gate binding](../architecture/release-gate-binding.md)).
 - **Network:** the API is not reachable from browsers. CORS is disabled, and the only public API endpoints are `/gate/*` and `/.well-known/jwks.json`.
 - **CSRF:** SameSite=Lax cookies, CSRF tokens on state-changing route handlers and server actions, and `Origin` header checks.
