@@ -2,7 +2,9 @@
 
 **Shift-left Risk Intelligence for Product Teams.** An AI-native platform that helps product teams identify, assess, mitigate and **verify** security, privacy, governance and compliance risks across the lifecycle of digital and AI-native products: from discovery and requirements to development and release decisions.
 
-> **Status:** M0 — Product & Engineering Foundation (planning). No features are implemented yet.
+> **Status:** M0 — Product & Engineering Foundation (planning). No product features are implemented yet.
+>
+> This is a non-commercial, educational, open-source **AI Product Engineering portfolio project**, built in public. It shows how product, architecture, security and governance decisions are made, recorded and verified.
 
 ## Why
 
@@ -18,6 +20,17 @@ Every result states which requirements were verified, how, when, and by which ev
 
 - Not a certification body, legal advisor or substitute for an auditor.
 - It never claims a product is "secure" or "compliant". It reports what was **verified**, **attested**, **failed** or **not verified**, and the limits of each check. See [assurance language](docs/governance/assurance-language.md).
+
+## Where the project stands
+
+| Category | What it contains | Where |
+|---|---|---|
+| **Implemented and running** | Repository foundation: docs CI (Markdown lint, internal link check, secret scan) required on `main`; a branch ruleset; secret scanning with push protection; private vulnerability reporting; Dependabot; SHA-pinned actions | [`.github/`](.github/), [Security policy](SECURITY.md) |
+| **Approved decisions** | License (Apache-2.0), English-only v0.1, authentication approach (Auth.js with BFF), free-tier hosting, phased audit checkpoints, review corrections | [Decision log](docs/product/decisions-and-open-questions.md#5-decision-log) |
+| **Proposed architecture** | 16 ADRs, all *Proposed* until explicitly accepted | [ADRs](docs/adr/README.md) |
+| **Tested security controls** | Only the repository controls above. Every product control in the security documents is a **design**, with its planned tests; none is implemented or tested yet | [Verification methods](docs/governance/verification-methods.md) |
+| **Known limitations** | Documented per design, for example the audit log checkpoint limits and the release gate's limits | [Audit log integrity](docs/security/audit-log-integrity.md), [Release gate binding](docs/architecture/release-gate-binding.md) |
+| **Future capabilities** | Milestones M1–M6 and the MVP scope | [Roadmap](docs/roadmap.md), [PRD v0.1](docs/product/prd-v0.1.md) |
 
 ## Documentation
 
@@ -49,4 +62,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
 [Apache License 2.0](LICENSE) (decision Q1). Copyright notice: [NOTICE](NOTICE). Catalog and third-party content licensing: [LICENSE-CONTENT.md](LICENSE-CONTENT.md) and [third-party license compatibility](docs/governance/third-party-licenses.md).
 
-This is a non-commercial, educational, open-source portfolio project (decision Q6).
+Non-commercial, educational, open-source portfolio project (decision Q6).
