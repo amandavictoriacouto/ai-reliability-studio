@@ -17,7 +17,7 @@
 
 ## 2. Trust boundaries
 
-TB1 Browser ↔ Web · TB2 Web ↔ API · TB3 CI runner ↔ Gate API · TB4 API/Worker ↔ PostgreSQL · TB5 API/Worker ↔ Object storage · TB6 AI gateway ↔ LLM provider · TB7 Worker ↔ GitHub API · TB8 Worker ↔ **customer-registered LLM endpoint** (untrusted) · TB9 Uploaded files ↔ parsers.
+TB1 Browser ↔ Web · TB2 Web ↔ API · TB3 CI runner ↔ Gate API · TB4 API/Worker ↔ PostgreSQL · TB5 API/Worker ↔ Object storage · TB6 AI gateway ↔ LLM provider · TB7 Worker ↔ GitHub API · TB8 Verifier runner ↔ **customer-registered LLM endpoint** (untrusted) · TB9 Uploaded files ↔ parsers · TB10 Verifier runner ↔ Job-Lease API.
 
 ## 3. Threats and mitigations
 
@@ -25,7 +25,7 @@ Priority: **H**igh / **M**edium / **L**ow. Target: **MVP** = must ship in v0.1; 
 
 | ID | Boundary | STRIDE / OWASP LLM | Threat | Pri | Mitigation | Target |
 |---|---|---|---|---|---|---|
-| T01 | TB3 | Spoofing / Tampering | Forged or replayed gate "pass" for a different commit | H | Commit and repo taken from GitHub OIDC token; decision bound to (release, SHA, policy digest, evidence snapshot digest), short TTL, Ed25519 JWS verified by the action; required Check Run posted by our GitHub App ([detail](../architecture/release-gate-binding.md)) | MVP |
+| T01 | TB3 | Spoofing / Tampering | Forged or replayed gate "pass" for a different commit | H | Commit and repo taken from GitHub OIDC token; decision bound to (release, pull request head SHA resolved by our GitHub App, policy digest, evidence snapshot digest); Check Run on the head SHA, short TTL, Ed25519 JWS verified by the action; required Check Run posted by our GitHub App ([detail](../architecture/release-gate-binding.md)) | MVP |
 | T02 | TB2/TB4 | Information disclosure | Cross-tenant data access (IDOR) | H | workspace_id on every row, composite FKs, forced RLS with `SET LOCAL`, BFF pattern, generated cross-tenant tests ([detail](tenant-isolation-and-authz.md)) | MVP |
 | T03 | TB8 | SSRF / Elevation | Probe-target URL used to hit internal services or cloud metadata | H | Ownership verification + explicit authorization; deny private/link-local/metadata ranges on all resolved IPs; IP pinning against rebinding; no redirects; egress proxy; isolated runner without DB credentials; strict limits ([detail](endpoint-verifier-security.md)) | MVP |
 | T04 | TB6 | LLM01 Prompt injection | Malicious text in profile/uploaded docs manipulates risk suggestions (e.g., "report no risks") | H | Delimited untrusted input; output constrained to catalog IDs; rules-based baseline risks always included for matching profile attributes; human acceptance required; injection cases in eval suite | MVP |
@@ -45,6 +45,7 @@ Priority: **H**igh / **M**edium / **L**ow. Target: **MVP** = must ship in v0.1; 
 | T18 | TB2 | LLM07 System prompt leakage | Users extract system prompts | L | No secrets in prompts (prompts are public in repo anyway) | MVP |
 | T19 | Ops | Info disclosure | Logs/traces contain secrets or customer prompts | M | Redaction processors in OTel pipeline, no prompt bodies by default | MVP |
 | T20 | TB3 | DoS | Gate API outage blocks customer releases | M | Configurable fail-open/fail-closed per policy, audited "break-glass" override | MVP |
+| T21 | TB10, TB4 | Elevation / Tampering | Runner pool credential stolen, or a stale runner writes results after its lease expired; worker job runs for the wrong tenant | H | Runner has no DB credentials; pool credential can only claim allowed job types; job-scoped token per lease with fencing generation; API derives workspace from the lease; metadata-only queue table with dedicated roles; worker runs under `SET LOCAL` from the job and re-checks permissions ([detail](../architecture/job-lease-api.md)) | MVP |
 
 ## 4. Residual risks and assumptions
 

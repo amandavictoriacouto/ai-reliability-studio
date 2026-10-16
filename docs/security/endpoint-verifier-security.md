@@ -62,7 +62,8 @@ Rules:
 ## 4. Isolation
 
 - **Separate runner pool.** Probe jobs run in a dedicated `verifier-runner` process type, separate from the general worker.
-- **No database or storage credentials.** The runner receives a job payload (target, decrypted credential, probe suite) and a **job-scoped token** that only allows it to submit results for that job. The API stores results and evidence.
+- **No database or storage credentials.** The runner never polls the database. It obtains work through the internal **[Job-Lease API](../architecture/job-lease-api.md)** with a pool credential that can only claim allowed job types. Each lease carries the job payload (target, test credential, probe suite) and a **job-scoped token** (`results:submit` for that job, workspace and lease generation, valid ≤ 15 min). The API re-checks endpoint verification, authorization and limits before issuing the lease, and stores results and evidence itself.
+- **Leases expire and are fenced.** An expired lease returns the job to the queue; a stale runner cannot write results for a newer attempt. Revocation and kill switches are delivered through the heartbeat response.
 - **One job per process.** The process runs as non-root with a read-only filesystem, a writable tmpfs of at most 64 MB, dropped Linux capabilities, the default seccomp profile, and no shell utilities in the image.
 - **No secrets beyond the job.** The runner has no LLM provider keys, GitHub credentials or signing keys.
 - **LLM-as-judge disabled by default.** Detection uses deterministic checks: canary tokens planted in system-prompt probes, PII and secret regex detectors, length and format checks. If a judge model is enabled later, it runs in the API with hardened prompts and receives transcripts as quoted data.
