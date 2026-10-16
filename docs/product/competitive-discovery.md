@@ -64,7 +64,7 @@
 | H3 | Categories A/B are perceived as "for compliance people" and are not used by PMs day to day. | Interviews with PMs at companies that own Vanta/Drata/OneTrust. | PMs already use them for feature-level decisions. |
 | H4 | "Evidence-linked verification" is a stronger trust signal for buyers than reports/questionnaires. | Show 2 mock reports (asserted vs evidence-linked) to 5 security/GRC people. | No preference or preference for the simpler one. |
 | H5 | A CI release gate is acceptable to engineering teams if it explains *why* and allows audited overrides. | Prototype gate output reviewed by 5 engineers. | Majority would disable it. |
-| H6 | The white space is the *workflow* (feature-level, PM-owned), not the testing technology, which incumbents are consolidating. | Supported indirectly by acquisitions (evidence D). Validate via willingness-to-pay conversations. | Buyers only value testing depth. |
+| H6 | The white space is the *workflow* (feature-level, PM-owned), not the testing technology, which incumbents are consolidating. | Supported indirectly by acquisitions (evidence D). Validate via interviews about workflow value and adoption barriers. | Participants only value testing depth. |
 | H7 | Brazil (LGPD + ANPD AI guidance) and EU exposure create a reachable beachhead. | Interviews + regulatory scan. | No urgency in BR market within 12–18 months. |
 
 ## 5. Implications for MVP
@@ -80,3 +80,4 @@
 - Pricing pages snapshot (not collected in this pass).
 - Brazilian landscape (local GRC/LGPD tools, ANPD AI guidance status).
 - Interview guide v1 (see [roadmap](../roadmap.md), M0).
+- Commercial-market terminology is used only for comparative research; this project is non-commercial and educational.
