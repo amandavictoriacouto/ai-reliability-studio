@@ -19,3 +19,7 @@ Thanks for your interest. The project is in its foundation phase; the workflow b
 - All repository content is written in **English**.
 - Never commit secrets, credentials, personal data or customer data.
 - Never reproduce copyrighted standard text (e.g., ISO/IEC). See [framework references](docs/governance/framework-references.md).
+
+## License
+
+The project is licensed under the [Apache License 2.0](LICENSE). By submitting a contribution, you agree that it is licensed under the same terms (Apache-2.0, section 5). Do not submit code you cannot license this way, and do not copy code under incompatible licenses (for example GPL or AGPL) into the repository. New dependencies must pass the [third-party license check](docs/governance/third-party-licenses.md).
