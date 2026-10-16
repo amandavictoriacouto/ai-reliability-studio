@@ -14,7 +14,7 @@
 | **D6** | Stack refinements | Keep your stack; add `uv`, `ruff`, `mypy`, SQLAlchemy 2/Alembic, Pydantic v2, pnpm, openapi-typescript, Testcontainers, Schemathesis, import-linter. | — | Modern defaults, contract-first API. |
 | **D7** | LLM layer | Own thin `LLMProvider` interface; adapters for Anthropic + OpenAI first. | LiteLLM / LangChain | Control of provenance and evals; small surface. |
 | **D8** | Policy engine | Declarative YAML evaluated in Python, behind an interface; OPA as future option. | OPA/Rego from day 1 | PM-readable policies. |
-| **D9** | Verifiers in MVP | (a) GitHub repo posture, (b) LLM endpoint probe suite. | Cloud config (AWS), SAST import | Directly tied to AI-feature risks; demoable without cloud accounts. |
+| **D9** | Verifiers in MVP | (a) GitHub repo posture, (b) LLM endpoint probe suite, plus (c) a minimal GitHub Actions CI-results import with verified provenance (F5). | Cloud config (AWS), broader SAST/DAST imports | Directly tied to AI-feature risks; demoable without cloud accounts. |
 | **D10** | Frameworks in v0.1 | Depth: OWASP LLM Top 10 2025 + NIST AI RMF. Reference-only mappings: ISO/IEC 42001 & 27001 (identifiers), LGPD articles. EU AI Act: informational only (no classification) until v0.2+. | Full EU AI Act module in MVP | EU AI Act dates are shifting (Omnibus); ISO texts are licensed. |
 | **D11** | Dogfooding | The Studio assesses itself and gates its own releases from M5. | — | Strongest portfolio proof. |
 
@@ -52,18 +52,18 @@
 | R7 | Solo capacity / burnout | High | High | Small increments; content reuse from build; cut M6 if needed. |
 | R8 | Incumbents ship similar PM-facing features | Med | Med | Differentiate on workflow + traceability; move fast to public demo. |
 | R9 | No validated demand (it remains a portfolio piece only) | Med | Med | Parallel interview track with kill criteria. |
-| R10 | LLM/hosting costs for a public demo | Med | Low | Quotas, cached demo data, "no LLM" mode. |
+| R10 | LLM/hosting costs for a public demo | Med | Low | Free tiers only (Q6); no paid service without explicit authorization; quotas, cached demo data, "no LLM" mode; local-only fallback for capabilities that cannot run safely for free. |
 
 ## 4. Open questions for the product owner
 
 | ID | Question | Options (recommended marked ★) |
 |---|---|---|
-| **Q1** | Repository license? | ★ A) Apache-2.0 (open source, patent grant) · B) AGPL-3.0 (protects SaaS from being re-hosted) · C) BSL/source-available · D) MIT |
+| ~~Q1~~ | ~~Repository license?~~ | **Approved 2026-10-16:** Apache-2.0. See decision log. |
 | **Q2** | Primary demo scenario? | ★ A) "AI customer-support reply assistant" (RAG + PII) · B) AI hiring screener (EU AI Act high-risk flavour) · C) Internal coding agent |
 | ~~Q3~~ | ~~When to make the repo public?~~ | **Resolved:** the repository is already public (created 2026-10-15). |
 | ~~Q4~~ | ~~UI language for v0.1?~~ | **Approved 2026-10-15:** English (en-US) only; i18n-ready frontend. See decision log. |
-| **Q5** | Auth approach (ADR-0009)? | ★ A) Auth.js + GitHub/Google OIDC · B) Clerk (managed) · C) Supabase Auth |
-| **Q6** | Hosting (ADR-0016)? | ★ A) Vercel (web) + Fly.io/Render (api/worker) + Neon Postgres + Cloudflare R2 · B) AWS (ECS + RDS + S3) for enterprise realism · C) Decide in M1 |
+| ~~Q5~~ | ~~Auth approach (ADR-0009)?~~ | **Approved 2026-10-16:** Auth.js with BFF. See decision log. |
+| ~~Q6~~ | ~~Hosting (ADR-0016)?~~ | **Approved 2026-10-16:** free tiers for a non-commercial project; Vercel Hobby preferred for the web app. See decision log. |
 | **Q7** | LLM providers to support first? | ★ A) Anthropic + OpenAI · B) One provider + local (Ollama) · C) Other |
 | **Q8** | Target market emphasis for discovery interviews? | ★ A) Brazil first (LGPD), EU-exposed second · B) Global from start |
 | **Q9** | Weekly capacity (hours) and any target date (e.g., an event or job-search window) for v0.1? | Needed to turn milestones into dates. |
@@ -74,4 +74,8 @@
 |---|---|---|---|---|
 | 2026-10-15 | Q3 | Repository is public from M0 (build in public). | Repository owner (repo created public) | — |
 | 2026-10-15 | Q4 | **Language and internationalization.** (1) English (en-US) is the default and only supported language in MVP v0.1. (2) All UI components, navigation, forms, notifications, validation messages and reports use English. (3) Source code, comments, tests, documentation, Issues, PRs, commit messages and ADRs are written in English. (4) Product documentation (brief, discovery, PRD, roadmap) is maintained in English. (5) The frontend is internationalization-ready so pt-BR and other languages can be added without major refactoring. (6) No multilingual UI or translation services in the MVP. (7) Regulatory frameworks keep their official terminology, identifiers and references. | Product owner | [MVP architecture §11](../architecture/mvp-architecture.md#11-internationalization-readiness) |
-| *pending* | D1–D17, Q1–Q2, Q5–Q9 | Awaiting review | — | — |
+| 2026-10-16 | Q1 | **License.** The repository's code is licensed under the **Apache License 2.0**, with the official license text in `LICENSE` and the copyright notice in `NOTICE`. Third-party license compatibility of the planned stack is checked and tracked. Framework material keeps its own license. | Product owner | [`LICENSE`](../../LICENSE), [third-party licenses](../governance/third-party-licenses.md) |
+| 2026-10-16 | Q5 | **Authentication.** Auth.js with a Backend-for-Frontend (BFF) pattern. Secure server-side sessions, token protection (no API tokens in the browser), RBAC and multi-tenant isolation are maintained. ADR-0009 is updated and stays *Proposed* until its final text is accepted. | Product owner | [ADR-0009](../adr/0009-authentication.md), [tenant isolation](../security/tenant-isolation-and-authz.md) |
+| 2026-10-16 | Q6 | **Hosting and cost.** AI Reliability Studio is a non-commercial, educational, open-source portfolio project. Vercel Hobby is preferred for the frontend, subject to its terms and limits. Free tiers are prioritized for FastAPI, PostgreSQL, object storage and isolated runners. The security architecture is preserved even if some capabilities remain local-only. **No paid infrastructure or paid service is provisioned or enabled without explicit authorization.** ADR-0016 is updated and stays *Proposed*. | Product owner | [ADR-0016](../adr/0016-hosting.md) |
+| 2026-10-16 | F1–F7 | Corrections from the M0 architecture and product review approved: head-SHA gate binding (F1), ADR-0009 text (F2), PRD ownership and gate stories (F3), Job-Lease API for the isolated runner (F4), CI-results import with verified provenance (F5), precedence of legal holds, retention and erasure (F6), queue-table roles and tenant-scoped workers (F7). The documents are updated; implementation is planned for M1 and later. | Product owner | [Job-Lease API](../architecture/job-lease-api.md), [release gate binding](../architecture/release-gate-binding.md), [evidence model §5.4](../architecture/evidence-model.md#54-precedence-legal-holds-retention-obligations-and-erasure-requests) |
+| *pending* | D1–D17, Q2, Q7–Q9; acceptance of ADR-0001…0016 | Awaiting review | — | — |
