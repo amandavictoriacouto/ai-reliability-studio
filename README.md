@@ -27,7 +27,8 @@ Every result states which requirements were verified, how, when, and by which ev
 |---|---|---|
 | **Implemented and running** | Repository foundation: docs CI (Markdown lint, internal link check, secret scan) required on `main`; a branch ruleset; secret scanning with push protection; private vulnerability reporting; Dependabot; SHA-pinned actions | [`.github/`](.github/), [Security policy](SECURITY.md) |
 | **Approved decisions** | License (Apache-2.0), English-only v0.1, authentication approach (Auth.js with BFF), free-tier hosting, phased audit checkpoints, review corrections | [Decision log](docs/product/decisions-and-open-questions.md#5-decision-log) |
-| **Proposed architecture** | 16 ADRs, all *Proposed* until explicitly accepted | [ADRs](docs/adr/README.md) |
+| **Accepted architecture** | 9 ADRs needed for M1, accepted 2026-10-16: modular monolith, monorepo, PostgreSQL and RLS, hash-chained audit log, authentication with BFF, RBAC, code-first API contract, tooling, local development | [ADRs](docs/adr/README.md) |
+| **Proposed architecture** | 7 ADRs still *Proposed* until explicitly accepted (job queue, LLM providers, policies, evidence storage, sandboxed verifiers, OpenTelemetry, hosting) | [ADRs](docs/adr/README.md) |
 | **Tested security controls** | Only the repository controls above. Every product control in the security documents is a **design**, with its planned tests; none is implemented or tested yet | [Verification methods](docs/governance/verification-methods.md) |
 | **Known limitations** | Documented per design, for example the audit log checkpoint limits and the release gate's limits | [Audit log integrity](docs/security/audit-log-integrity.md), [Release gate binding](docs/architecture/release-gate-binding.md) |
 | **Future capabilities** | Milestones M1–M6 and the MVP scope | [Roadmap](docs/roadmap.md), [PRD v0.1](docs/product/prd-v0.1.md) |

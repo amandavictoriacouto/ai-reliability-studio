@@ -49,4 +49,4 @@
 
 ## Approvals still needed
 
-See [`docs/product/decisions-and-open-questions.md`](../product/decisions-and-open-questions.md). Approved: Q1, Q3, Q4, Q5, Q6 and the F1–F7 corrections. Pending: decisions D1–D17, questions Q2 and Q7–Q9, and acceptance of the final text of ADR-0001…0016.
+See [`docs/product/decisions-and-open-questions.md`](../product/decisions-and-open-questions.md). Approved: Q1, Q3, Q4, Q5, Q6, the F1–F7 corrections, D15, D16, the M1 simplifications, and ADR-0001, 0002, 0003, 0008, 0009, 0010, 0013, 0014 and 0015 (accepted 2026-10-16). Deferred: D7/Q7 to M2, D14 to the M3 design review. Pending: the other D-decisions, Q2, Q8, Q9, and acceptance of the remaining ADRs.

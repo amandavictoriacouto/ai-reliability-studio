@@ -32,6 +32,7 @@ Changes reach `main` only through pull requests from feature branches, using Con
 16. `docs(adr): clarify code-first API, GitHub-only M1 login and incremental tooling`
 17. `docs(security): align audit key review with phased D15 checkpoints`
 18. `docs(governance): note the repository's Actions allow-list and SHA pinning`
+19. `docs(adr): accept the M1 ADR set (0001, 0002, 0003, 0008, 0009, 0010, 0013, 0014, 0015)`
 
 ## PR 3 — `docs/m0-product` → PR 2: "docs(product): brief, discovery, PRD and roadmap"
 
@@ -46,6 +47,7 @@ Changes reach `main` only through pull requests from feature branches, using Con
 9. `docs: point licensing notes and contributing guide to Apache-2.0`
 10. `docs(product): record D15 (phased), D16 and M1 simplifications as approved`
 11. `docs(product): align PRD integrity wording with write-once evidence and phased D15`
+12. `docs(product): record acceptance of the M1 ADR set and the D7 and D14 deferrals`
 
 ## PR 4 — `docs/m0-delivery` → PR 3: "docs: delivery plan, GitHub structure and README"
 
@@ -58,6 +60,7 @@ Changes reach `main` only through pull requests from feature branches, using Con
 7. `docs: align plan and backlog with D15, D16 and M1 simplifications`
 8. `docs: add project status overview to README`
 9. `docs(pm): list the Actions-settings note in commit sequence`
+10. `docs: record M1 ADR acceptance in README, changelog and plan`
 
 ## After the documentation PRs (each after its decision)
 
