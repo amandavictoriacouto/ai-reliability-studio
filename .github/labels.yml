@@ -1,0 +1,24 @@
+# Source of truth for repository labels (applied with a label-sync tool or the GitHub CLI).
+- { name: "type:feature",   color: "1D76DB", description: "User-facing capability" }
+- { name: "type:bug",       color: "D73A4A", description: "Something is broken" }
+- { name: "type:docs",      color: "0075CA", description: "Documentation" }
+- { name: "type:adr",       color: "5319E7", description: "Architecture decision record" }
+- { name: "type:decision",  color: "B60205", description: "Product/scope decision" }
+- { name: "type:research",  color: "C5DEF5", description: "Discovery or technical research" }
+- { name: "type:security",  color: "000000", description: "Security, privacy or threat item" }
+- { name: "type:chore",     color: "EDEDED", description: "Maintenance, CI, tooling" }
+- { name: "area:web",       color: "FBCA04", description: "apps/web" }
+- { name: "area:api",       color: "FBCA04", description: "apps/api" }
+- { name: "area:ai",        color: "FBCA04", description: "AI gateway, prompts, evals" }
+- { name: "area:catalog",   color: "FBCA04", description: "Risk/control catalog and mappings" }
+- { name: "area:verifier",  color: "FBCA04", description: "Automated verifiers" }
+- { name: "area:gate",      color: "FBCA04", description: "Policies and release gate" }
+- { name: "area:infra",     color: "FBCA04", description: "CI/CD, infra, observability" }
+- { name: "area:product",   color: "FBCA04", description: "Product docs and discovery" }
+- { name: "priority:p0",    color: "B60205", description: "Blocking" }
+- { name: "priority:p1",    color: "D93F0B", description: "High" }
+- { name: "priority:p2",    color: "FBCA04", description: "Medium" }
+- { name: "priority:p3",    color: "0E8A16", description: "Low" }
+- { name: "status:needs-decision", color: "E99695", description: "Waiting for product-owner approval" }
+- { name: "status:blocked", color: "E4E669", description: "Blocked by a dependency" }
+- { name: "good first issue", color: "7057FF", description: "Good for newcomers" }

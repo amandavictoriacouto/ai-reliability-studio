@@ -1,0 +1,11 @@
+name: Research
+description: Discovery or technical research task
+labels: ["type:research"]
+body:
+  - type: textarea
+    id: question
+    attributes: { label: Research question / hypothesis }
+    validations: { required: true }
+  - type: textarea
+    id: method
+    attributes: { label: Method and success / kill criteria }

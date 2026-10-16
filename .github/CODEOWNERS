@@ -1,0 +1,8 @@
+# Default owner for everything
+*                     @amandavictoriacouto
+# Sensitive areas that require explicit review
+/catalog/             @amandavictoriacouto
+/docs/adr/            @amandavictoriacouto
+/.github/             @amandavictoriacouto
+/apps/api/**/migrations/  @amandavictoriacouto
+/catalog/policies/    @amandavictoriacouto
