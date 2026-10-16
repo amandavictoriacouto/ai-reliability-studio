@@ -83,19 +83,19 @@ flowchart LR
 |---|---|---|---|
 | ADR-0001 | Modular monolith + worker | Microservices; serverless functions | Lowest ops cost; clear seams for later extraction. |
 | ADR-0002 | Monorepo (`apps/`, `packages/`, `catalog/`, `docs/`) | Polyrepo | One PR can change API + UI + catalog + docs; better portfolio readability. |
-| ADR-0003 | PostgreSQL as system of record; tenant_id on every row, enforced in repository layer + **Postgres RLS** as defense in depth | Schema-per-tenant | Simple, testable isolation; RLS catches application bugs. |
+| ADR-0003 | PostgreSQL as system of record; `workspace_id` on every tenant row, enforced in the repository layer + **forced Postgres RLS**, least-privilege roles, `SET LOCAL` tenant context and composite foreign keys | Schema-per-tenant | Simple, testable isolation; RLS catches application bugs. |
 | ADR-0004 | Postgres-backed job queue (`SELECT … FOR UPDATE SKIP LOCKED`, e.g. Procrastinate); metadata-only queue table with dedicated roles; isolated runner gets work via the Job-Lease API | Celery + Redis; cloud queues | One less infra component; sufficient throughput for MVP. |
 | ADR-0005 | Own `LLMProvider` protocol + adapters (Anthropic, OpenAI; optional local) | LiteLLM; LangChain | Small surface, full control of provenance/evals; can wrap LiteLLM later if adapters multiply. |
 | ADR-0006 | Policies as declarative YAML evaluated by a small Python engine, behind a `PolicyEngine` interface | OPA/Rego; Cedar | PM-readable policies; no new language for users; keep OPA as future engine. |
 | ADR-0007 | Evidence content-addressed (SHA-256) in object storage, metadata in Postgres, write-once | Store blobs in Postgres | Immutability, cheap storage, natural dedup. |
-| ADR-0008 | Audit log append-only table with hash chain (`hash = sha256(prev_hash ‖ canonical_event)`), DB role without UPDATE/DELETE | External ledger; event sourcing | Tamper-evidence at low complexity; verifiable by a CLI command. |
+| ADR-0008 | Append-only audit table with one hash chain per workspace (`hash = SHA-256(JCS(event))`, event includes `prev_hash` and `seq`), DB role without UPDATE/DELETE, signed checkpoints phased per D15 | External ledger; event sourcing | Tamper-evidence at low complexity; verifiable by a CLI command. |
 | ADR-0009 | AuthN via OIDC (GitHub + Google) using Auth.js in web; BFF pattern with 60 s identity-only JWTs from the web server to the API; CI uses GitHub Actions OIDC (scoped API tokens as fallback) | Clerk/Auth0 (managed); Keycloak | Free, standard, GitHub login fits audience. **Q5 approved 2026-10-16**; ADR text pending acceptance. |
 | ADR-0010 | AuthZ: RBAC per workspace (`owner, admin, product, engineer, security, grc, viewer`) checked in a single policy module | ABAC from day 1 | Enough for MVP; tested by permission matrix. |
 | ADR-0011 | Verifiers run in the worker with **egress allow-list, timeouts, no shared credentials**; endpoint ownership verification required | Run in customer CI only | Safe-by-default; supports both modes later. |
 | ADR-0012 | OpenTelemetry SDKs in web/api/worker; GenAI semantic conventions for LLM spans | Vendor SDKs | Vendor-neutral; showcases AI observability. |
-| ADR-0013 | API contract-first: FastAPI OpenAPI → generated TS client; breaking changes checked in CI | GraphQL; tRPC | Python backend makes REST/OpenAPI the natural boundary. |
+| ADR-0013 | Code-first FastAPI → generated OpenAPI contract → generated TS client; spec-current check in M1, breaking-change check and Schemathesis from M2 | GraphQL; tRPC | Python backend makes REST/OpenAPI the natural boundary. |
 | ADR-0014 | Python tooling: `uv`, `ruff`, `mypy --strict` on domain; JS: `pnpm`, ESLint, Prettier | Poetry, Black | Fast, modern, single-tool linting. |
-| ADR-0015 | Local dev via Docker Compose (Postgres, MinIO, OTel collector, Jaeger) | Cloud dev envs | Reproducible, offline-friendly. |
+| ADR-0015 | Local dev via Docker Compose, services added per milestone (Postgres in M1; MinIO in M3; observability profile optional) | Cloud dev envs | Reproducible, offline-friendly. |
 | ADR-0016 | Free-tier hosting for a non-commercial educational project: Vercel Hobby for web (subject to its terms and limits); free tiers for API, PostgreSQL, object storage and runner; capabilities that cannot be hosted safely for free stay local (Docker Compose) | Paid PaaS; AWS ECS/Fargate | Zero cost; security architecture unchanged. **Q6 approved 2026-10-16**; ADR text pending acceptance. No paid service without explicit authorization. |
 
 ## 5. Backend module structure
