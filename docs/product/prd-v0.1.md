@@ -39,7 +39,7 @@ A product team about to ship an LLM-powered feature cannot answer, in one place 
 | Risk | Catalog-referenced risk instance for a release; status: suggested → accepted/rejected; rating (likelihood × impact), rationale, owner. |
 | Control | Requirement from our control catalog (e.g., `ARS-LLM-01: untrusted input is isolated from system instructions`), with framework references. |
 | Verification | Execution of a method (automated / manual / attestation) against a control → result `passed` / `failed` / `inconclusive` / `not_applicable`. |
-| Evidence | Immutable artifact supporting a verification: type, source, collector + version, collected_at, SHA-256, storage URI, valid_until. |
+| Evidence | Write-once artifact supporting a verification (content is never modified; deletion only through the audited deletion service, which leaves a tombstone): type, source, collector + version, collected_at, SHA-256, storage URI, valid_until. |
 | Mitigation | Backlog item to close a gap; may be exported to GitHub Issues. |
 | Policy | Versioned declarative rule set evaluated for a release. |
 | Gate Decision | Result of evaluating a policy for (release, commit SHA, policy version) at time T, with reasons and evidence refs; expires. |
@@ -121,7 +121,7 @@ A product team about to ship an LLM-powered feature cannot answer, in one place 
 |---|---|
 | Security | OWASP ASVS L2 as the baseline target for the app itself; tenant isolation tests; secrets in a secret manager only. |
 | Privacy | LGPD-aligned: data inventory, purpose, retention, deletion on workspace removal; no personal data required to use the demo. |
-| Integrity | Evidence immutable (content-addressed by SHA-256); audit log hash-chained and verifiable via endpoint/CLI. |
+| Integrity | Evidence write-once and content-addressed by SHA-256; audit log hash-chained per workspace and verifiable via endpoint/CLI. Checkpoint guarantees are phased (D15): M1 checkpoints share the database and do not detect complete history deletion; independent storage and external anchoring come later. |
 | Observability | OpenTelemetry traces/metrics/logs, including LLM calls (latency, tokens, cost, prompt version). |
 | Performance | Gate API p95 < 500 ms (decision from precomputed state); discovery < 60 s. |
 | Accessibility | WCAG 2.2 AA for core flows. |
