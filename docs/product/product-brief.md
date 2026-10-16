@@ -26,7 +26,7 @@ Product teams decide *what* ships and *when*, but risk work usually happens else
 | Secondary | Security Engineer | "Get involved at design time, with structured context, and stop being the last-minute gate." |
 | Secondary | GRC / Privacy / Compliance | "Get traceable evidence per requirement that I can reuse for audits, without chasing teams." |
 
-**Ideal first customer [HYPOTHESIS]:** a 50–500 person software company (Brazil or EU-exposed) shipping its first LLM-powered features, with a small or no dedicated security team and an upcoming ISO/IEC 27001 / 42001 or enterprise-customer security review.
+**Hypothetical target organisation for research [HYPOTHESIS]:** a 50–500 person software company (Brazil or EU-exposed) shipping its first LLM-powered features, with a small or no dedicated security team and an upcoming ISO/IEC 27001 / 42001 or enterprise-customer security review.
 
 ## 4. Positioning
 
@@ -85,6 +85,8 @@ Product teams decide *what* ships and *when*, but risk work usually happens else
 - No reproduction of copyrighted standard text (ISO/IEC): we reference identifiers and write our own summaries.
 
 ## 9. Key constraints
+
+- This is a non-commercial, educational, open-source portfolio project. References to customers, buyers and market segments describe research personas, not a sales plan or commercial launch.
 
 - Solo builder with AI pair-engineering; capacity is the binding constraint → narrow vertical slice first.
 - Public repository: no secrets, no customer data, no licensed standard text in the repo.
