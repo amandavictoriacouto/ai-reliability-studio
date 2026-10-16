@@ -14,11 +14,11 @@ Lifecycle: **Proposed** (PR opened, labeled `type:adr`) → **Accepted** / **Rej
 | [ADR-0006](0006-declarative-policy-engine.md) | Declarative YAML release policies | Proposed |
 | [ADR-0007](0007-content-addressed-evidence.md) | Content-addressed, write-once evidence storage | Proposed |
 | [ADR-0008](0008-hash-chained-audit-log.md) | Append-only, hash-chained audit log | Proposed |
-| [ADR-0009](0009-authentication.md) | Authentication via OIDC (pending approval of Q5) | Proposed |
+| [ADR-0009](0009-authentication.md) | Authentication with Auth.js, BFF and GitHub OIDC for CI (Q5 approved, text pending acceptance) | Proposed |
 | [ADR-0010](0010-rbac.md) | Role-based access control per workspace | Proposed |
 | [ADR-0011](0011-sandboxed-verifiers.md) | Sandboxed verifier execution | Proposed |
 | [ADR-0012](0012-opentelemetry.md) | OpenTelemetry for observability | Proposed |
 | [ADR-0013](0013-contract-first-api.md) | Contract-first REST API with generated client | Proposed |
 | [ADR-0014](0014-tooling.md) | Language tooling | Proposed |
 | [ADR-0015](0015-local-development.md) | Docker Compose for local development | Proposed |
-| [ADR-0016](0016-hosting.md) | Hosting target (pending approval of Q6) | Proposed |
+| [ADR-0016](0016-hosting.md) | Hosting target: free tiers for a non-commercial project (Q6 approved, text pending acceptance) | Proposed |
