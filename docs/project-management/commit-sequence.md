@@ -27,6 +27,9 @@ Changes reach `main` only through pull requests from feature branches, using Con
 11. `docs(adr): record Q5 and Q6 in ADR-0009 and ADR-0016, still proposed`
 12. `docs(governance): add third-party license compatibility check`
 13. `docs(governance): reference the CI-results import story by its PRD ID`
+14. `docs(adr): make RLS requirements, roles and isolation tests explicit in ADR-0003`
+15. `docs(security): phase audit checkpoints (D15) and state their limits`
+16. `docs(adr): clarify code-first API, GitHub-only M1 login and incremental tooling`
 
 ## PR 3 — `docs/m0-product` → PR 2: "docs(product): brief, discovery, PRD and roadmap"
 
@@ -39,6 +42,7 @@ Changes reach `main` only through pull requests from feature branches, using Con
 7. `docs(product): align PRD with gate head-SHA binding, ownership proof and CI import`
 8. `docs(product): record Q1, Q5, Q6 and the F1-F7 corrections as approved`
 9. `docs: point licensing notes and contributing guide to Apache-2.0`
+10. `docs(product): record D15 (phased), D16 and M1 simplifications as approved`
 
 ## PR 4 — `docs/m0-delivery` → PR 3: "docs: delivery plan, GitHub structure and README"
 
@@ -48,6 +52,7 @@ Changes reach `main` only through pull requests from feature branches, using Con
 4. `docs: rewrite README with positioning and documentation index`
 5. `docs(pm): list README lint fix in commit sequence`
 6. `docs: update README, plans and backlog for Q1, Q5, Q6 and F1–F7`
+7. `docs: align plan and backlog with D15, D16 and M1 simplifications`
 
 ## After the documentation PRs (each after its decision)
 

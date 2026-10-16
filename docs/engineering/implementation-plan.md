@@ -25,7 +25,7 @@
 
 ## M1 — Walking skeleton
 
-1.1 Postgres + SQLAlchemy + Alembic + Testcontainers · 1.2 Identity: Auth.js login with BFF (Q5, ADR-0009), workspaces, memberships, RBAC matrix tests · 1.3 RLS + cross-tenant tests · 1.4 Audit module (hash chain, verify CLI) · 1.5 Context: products, releases, versioned system profile + UI wizard · 1.6 OTel across web/api · 1.7 Deploy pipeline to free-tier hosts per ADR-0016 (Q6), with preview environments; no paid service and no deploy without explicit approval · 1.8 Playwright golden path.
+1.1 Postgres + SQLAlchemy + Alembic + Testcontainers (Docker Compose with PostgreSQL only) · 1.2 Identity: Auth.js GitHub login with BFF (Q5, D16, ADR-0009; Google later), workspaces, memberships, RBAC matrix tests · 1.3 RLS + cross-tenant tests · 1.4 Audit module (per-workspace hash chain, verify CLI, D15 phase 1 checkpoints) · 1.5 Context: products, releases, versioned system profile + UI wizard · 1.6 OTel across web/api · 1.7 Deploy pipeline to free-tier hosts per ADR-0016 (Q6), with preview environments; no paid service and no deploy without explicit approval · 1.8 Playwright golden path.
 
 ## M2 — Risk discovery & assessment
 

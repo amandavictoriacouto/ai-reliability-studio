@@ -31,16 +31,16 @@ Issues to create after the M0 documentation is approved. IDs are provisional (`M
 | ID | Title | Type | Area | Priority |
 |---|---|---|---|---|
 | M1-01 | PostgreSQL, SQLAlchemy, Alembic, Testcontainers setup | feature | api | p0 |
-| M1-02 | Auth.js sign-in with GitHub and Google (per ADR-0009, Q5) | feature | web/api | p0 |
+| M1-02 | Auth.js sign-in with GitHub (per ADR-0009, Q5); Google later | feature | web/api | p0 |
 | M1-03 | Workspaces, memberships and RBAC with permission-matrix tests | feature | api | p0 |
-| M1-04 | Row-Level Security + cross-tenant isolation tests (T02) | security | api | p0 |
+| M1-04 | Forced Row-Level Security, least-privilege roles, `SET LOCAL` context + isolation tests per ADR-0003 (T02) | security | api | p0 |
 | M1-05 | Hash-chained audit log + verify CLI (T07, T08) | feature | api | p0 |
 | M1-06 | Products and releases CRUD | feature | api/web | p1 |
 | M1-07 | Versioned System Profile + guided wizard | feature | web | p1 |
 | M1-08 | OpenTelemetry across web/api with redaction (T19) | feature | infra | p1 |
 | M1-11 | i18n-ready web shell: en-US message catalog, lint rule against hard-coded strings | feature | web | p2 |
 | M1-12 | BFF auth path: service JWT, session revocation, no API tokens in browser test | security | web/api | p0 |
-| M1-13 | Signed audit checkpoints + daily verification job | security | api | p1 |
+| M1-13 | Signed audit checkpoints, D15 phase 1 (same database, documented limits) + daily verification job | security | api | p1 |
 | M1-09 | Deploy pipeline + preview environments on free tiers (per ADR-0016, Q6); no paid services, deploy only with explicit approval | chore | infra | p1 |
 | M1-10 | Playwright golden path: sign in → system profile | test | web | p1 |
 
