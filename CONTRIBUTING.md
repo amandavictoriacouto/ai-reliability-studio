@@ -8,7 +8,7 @@ Thanks for your interest. The project is in its foundation phase; the workflow b
 2. **Decide before building.** Product, architecture and scope changes are proposed as an issue labeled `status:needs-decision` or as an ADR (`docs/adr/`) and approved by the code owner before implementation.
 3. **Branch:** `feat/<issue>-slug`, `fix/…`, `docs/…`, `adr/…`.
 4. **Commits:** [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `docs:`, `chore:`, `ci:`, `test:`, `refactor:`).
-5. **Pull request:** small and single-purpose, using the PR template; squash-merged after review and green CI.
+5. **Pull request:** small and single-purpose, using the PR template; merged using a merge commit after review and green CI; preserve commit history for stacked M0 pull requests.
 
 ## Definition of Done
 
