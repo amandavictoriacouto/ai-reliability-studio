@@ -1,0 +1,77 @@
+# Commit and Pull Request Sequence (M0)
+
+Changes reach `main` only through pull requests from feature branches, using Conventional Commits. The four M0 pull requests are **stacked**: each one is based on the previous branch, so CI on every PR checks a link-complete subset of the documentation. They are merged in order with merge commits (never squash), and only with the product owner's explicit approval. PRs 1–3 were merged on 2026-10-16; PR 4 was then rebased onto `main`.
+
+## PR 1 — `chore/m0-repo-foundation` → `main`: "chore: repository foundation" (merged 2026-10-16)
+
+1. `chore: add .gitignore, .editorconfig and markdownlint config`
+2. `docs: add code of conduct`
+3. `ci: add issue templates, PR template, CODEOWNERS and labels`
+4. `ci: add dependabot for GitHub Actions`
+5. `ci: add docs workflow (markdown lint, internal links, secret scan)`
+6. `docs: format existing README to pass markdown lint`
+7. `chore: add Apache-2.0 license and NOTICE`
+
+## PR 2 — `docs/m0-architecture` → `main`: "docs(architecture): MVP architecture, ADRs, security and governance" (merged 2026-10-16)
+
+1. `docs(architecture): add MVP architecture`
+2. `docs(adr): add ADR template, index and ADR-0001 to ADR-0016 as proposed`
+3. `docs(security): add initial threat model and security policy`
+4. `docs(architecture): add release gate binding and evidence model`
+5. `docs(security): add endpoint verifier, tenant isolation and audit log integrity reviews`
+6. `docs(governance): add assurance language, verification methods and framework references`
+7. `docs(architecture): bind gate decisions to the pull request head commit`
+8. `docs(architecture): add job queue roles and runner Job-Lease API`
+9. `docs(architecture): define precedence of legal holds, retention and erasure`
+10. `docs(governance): require verified provenance for imported CI results`
+11. `docs(adr): record Q5 and Q6 in ADR-0009 and ADR-0016, still proposed`
+12. `docs(governance): add third-party license compatibility check`
+13. `docs(governance): reference the CI-results import story by its PRD ID`
+14. `docs(adr): make RLS requirements, roles and isolation tests explicit in ADR-0003`
+15. `docs(security): phase audit checkpoints (D15) and state their limits`
+16. `docs(adr): clarify code-first API, GitHub-only M1 login and incremental tooling`
+17. `docs(security): align audit key review with phased D15 checkpoints`
+18. `docs(governance): note the repository's Actions allow-list and SHA pinning`
+19. `docs(adr): accept the M1 ADR set (0001, 0002, 0003, 0008, 0009, 0010, 0013, 0014, 0015)`
+
+## PR 3 — `docs/m0-product` → `main`: "docs(product): brief, discovery, PRD and roadmap" (merged 2026-10-16)
+
+1. `docs(product): add product brief`
+2. `docs(product): add competitive discovery and parallel discovery track`
+3. `docs(product): add PRD v0.1`
+4. `docs(product): add decisions log with Q4 approved`
+5. `docs: add roadmap`
+6. `docs: add contributing guide and content licensing notes`
+7. `docs(product): align PRD with gate head-SHA binding, ownership proof and CI import`
+8. `docs(product): record Q1, Q5, Q6 and the F1-F7 corrections as approved`
+9. `docs: point licensing notes and contributing guide to Apache-2.0`
+10. `docs(product): record D15 (phased), D16 and M1 simplifications as approved`
+11. `docs(product): align PRD integrity wording with write-once evidence and phased D15`
+12. `docs(product): record acceptance of the M1 ADR set and the D7 and D14 deferrals`
+13. `docs: align M0 product docs with non-commercial portfolio scope` (four commits with this title, 13–16, made by the product owner)
+
+## PR 4 — `docs/m0-delivery` → `main`: "docs: delivery plan, GitHub structure and README"
+
+1. `docs(engineering): add implementation plan and repository organization`
+2. `docs(pm): add GitHub structure, initial backlog and commit sequence`
+3. `docs: add documentation index and changelog`
+4. `docs: rewrite README with positioning and documentation index`
+5. `docs(pm): list README lint fix in commit sequence`
+6. `docs: update README, plans and backlog for Q1, Q5, Q6 and F1–F7`
+7. `docs: align plan and backlog with D15, D16 and M1 simplifications`
+8. `docs: add project status overview to README`
+9. `docs(pm): list the Actions-settings note in commit sequence`
+10. `docs: record M1 ADR acceptance in README, changelog and plan`
+11. `docs: update M0 status after PRs 1–3 and align the merge method`
+
+## After the documentation PRs (each after its decision)
+
+| Step | Content | Trigger |
+|---|---|---|
+| PR 5 | `docs(adr): accept ADR-…` for the ADRs still *Proposed* (status updates + decision log) | Each decision approved |
+| GitHub API setup | Labels, milestones M0–M6, backlog issues, Project board (the `main` ruleset is already active) | PRs 1–4 merged, explicit approval |
+| PR 6 | `feat: scaffold monorepo` (M0-11) | ADRs accepted |
+| PR 7 | `ci: app CI and security workflows` (M0-12) | PR 6 |
+| PR 8 | `feat(catalog): JSON Schemas v0` (M0-13) | ADRs accepted |
+| PR 9 | `docs(research): interview guide v1` (M0-14) | — |
+| Tag | `v0.0.1` release | M0 exit criteria met, explicit approval |
