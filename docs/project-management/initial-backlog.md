@@ -12,11 +12,11 @@ Issues to create after the M0 documentation is approved. IDs are provisional (`M
 | M0-04 | Decide Q7–Q8: LLM providers, target market (Q4, Q5 and Q6 approved) | decision | product | p1 | — |
 | M0-19 | Decide D12–D17 from the architecture review | decision | product | p0 | — |
 | M0-05 | Define capacity and target date for v0.1 (Q9) | decision | product | p1 | — |
-| M0-06 | Merge M0 planning documentation | docs | product | p0 | M0-01 |
-| M0-07 | Accept/reject ADR-0001…0016 | adr | infra | p0 | M0-01, M0-04 |
+| M0-06 | Merge M0 planning documentation (PRs 1–3 merged 2026-10-16; PR 4 pending) | docs | product | p0 | M0-01 |
+| M0-07 | Accept/reject ADR-0001…0016 (M1 set accepted 2026-10-16; the rest pending) | adr | infra | p0 | M0-01, M0-04 |
 | M0-08 | Add Apache-2.0 LICENSE and NOTICE (in PR 1) and license check in CI | chore | infra | p0 | M0-02 |
-| M0-09 | Apply labels, milestones, Project board and branch protection | chore | infra | p1 | M0-06 |
-| M0-10 | Enable repository security settings (private reporting, secret scanning, push protection, Dependabot) | security | infra | p0 | — |
+| M0-09 | Apply labels, milestones and Project board (`main` ruleset applied 2026-10-16) | chore | infra | p1 | M0-06 |
+| M0-10 | ~~Enable repository security settings (private reporting, secret scanning, push protection, Dependabot)~~ (done 2026-10-16) | security | infra | p0 | — |
 | M0-11 | Scaffold monorepo: `apps/api` (FastAPI health), `apps/web` (Next.js shell), `infra/docker-compose.yml`, Makefile | feature | infra | p1 | M0-07 |
 | M0-12 | CI for apps: lint, type-check, tests; security workflow | chore | infra | p1 | M0-11 |
 | M0-13 | Catalog JSON Schemas v0 (risk, control, mapping, policy) | feature | catalog | p1 | M0-07 |

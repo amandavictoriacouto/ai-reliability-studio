@@ -1,6 +1,6 @@
 # Commit and Pull Request Sequence (M0)
 
-Changes reach `main` only through pull requests from feature branches, using Conventional Commits. The four M0 pull requests are **stacked**: each one is based on the previous branch, so CI on every PR checks a link-complete subset of the documentation. They are merged in order, and only with the product owner's explicit approval.
+Changes reach `main` only through pull requests from feature branches, using Conventional Commits. The four M0 pull requests are **stacked**: each one is based on the previous branch, so CI on every PR checks a link-complete subset of the documentation. They are merged in order with merge commits (never squash), and only with the product owner's explicit approval. PRs 1–3 were merged on 2026-10-16; PR 4 was then rebased onto `main`.
 
 ## PR 1 — `chore/m0-repo-foundation` → `main`: "chore: repository foundation" (merged 2026-10-16)
 
@@ -12,7 +12,7 @@ Changes reach `main` only through pull requests from feature branches, using Con
 6. `docs: format existing README to pass markdown lint`
 7. `chore: add Apache-2.0 license and NOTICE`
 
-## PR 2 — `docs/m0-architecture` → PR 1: "docs(architecture): MVP architecture, ADRs, security and governance"
+## PR 2 — `docs/m0-architecture` → `main`: "docs(architecture): MVP architecture, ADRs, security and governance" (merged 2026-10-16)
 
 1. `docs(architecture): add MVP architecture`
 2. `docs(adr): add ADR template, index and ADR-0001 to ADR-0016 as proposed`
@@ -34,7 +34,7 @@ Changes reach `main` only through pull requests from feature branches, using Con
 18. `docs(governance): note the repository's Actions allow-list and SHA pinning`
 19. `docs(adr): accept the M1 ADR set (0001, 0002, 0003, 0008, 0009, 0010, 0013, 0014, 0015)`
 
-## PR 3 — `docs/m0-product` → PR 2: "docs(product): brief, discovery, PRD and roadmap"
+## PR 3 — `docs/m0-product` → `main`: "docs(product): brief, discovery, PRD and roadmap" (merged 2026-10-16)
 
 1. `docs(product): add product brief`
 2. `docs(product): add competitive discovery and parallel discovery track`
@@ -48,8 +48,9 @@ Changes reach `main` only through pull requests from feature branches, using Con
 10. `docs(product): record D15 (phased), D16 and M1 simplifications as approved`
 11. `docs(product): align PRD integrity wording with write-once evidence and phased D15`
 12. `docs(product): record acceptance of the M1 ADR set and the D7 and D14 deferrals`
+13. `docs: align M0 product docs with non-commercial portfolio scope` (four commits with this title, 13–16, made by the product owner)
 
-## PR 4 — `docs/m0-delivery` → PR 3: "docs: delivery plan, GitHub structure and README"
+## PR 4 — `docs/m0-delivery` → `main`: "docs: delivery plan, GitHub structure and README"
 
 1. `docs(engineering): add implementation plan and repository organization`
 2. `docs(pm): add GitHub structure, initial backlog and commit sequence`
@@ -61,15 +62,16 @@ Changes reach `main` only through pull requests from feature branches, using Con
 8. `docs: add project status overview to README`
 9. `docs(pm): list the Actions-settings note in commit sequence`
 10. `docs: record M1 ADR acceptance in README, changelog and plan`
+11. `docs: update M0 status after PRs 1–3 and align the merge method`
 
 ## After the documentation PRs (each after its decision)
 
 | Step | Content | Trigger |
 |---|---|---|
-| PR 5 | `docs(adr): accept ADR-…` (status updates + decision log) | D-decisions approved |
-| GitHub API setup | Labels, milestones M0–M6, backlog issues, Project board, branch protection | PRs 1–4 merged, explicit approval |
+| PR 5 | `docs(adr): accept ADR-…` for the ADRs still *Proposed* (status updates + decision log) | Each decision approved |
+| GitHub API setup | Labels, milestones M0–M6, backlog issues, Project board (the `main` ruleset is already active) | PRs 1–4 merged, explicit approval |
 | PR 6 | `feat: scaffold monorepo` (M0-11) | ADRs accepted |
-| PR 8 | `ci: app CI and security workflows` (M0-12) | PR 6 |
+| PR 7 | `ci: app CI and security workflows` (M0-12) | PR 6 |
 | PR 8 | `feat(catalog): JSON Schemas v0` (M0-13) | ADRs accepted |
 | PR 9 | `docs(research): interview guide v1` (M0-14) | — |
 | Tag | `v0.0.1` release | M0 exit criteria met, explicit approval |

@@ -54,7 +54,7 @@ ai-reliability-studio/
 | **Issues** | Templates: Feature (user story + AC), Bug, ADR proposal, Risk/Threat, Research. Every PR closes ≥ 1 issue. |
 | **Labels** | `type:` feature/bug/docs/adr/research/security/chore · `area:` web/api/ai/catalog/verifier/gate/infra · `priority:` p0–p3 · `status:` needs-decision/blocked · `good first issue` |
 | **Projects (v2)** | Board "AI Reliability Studio": columns Backlog → Ready → In progress → In review → Done; fields: Milestone, Area, Size (XS–L), Decision needed (Y/N). Views: Board, Roadmap (by milestone), Decisions. |
-| **Pull Requests** | Conventional Commits titles; template with Before/After, How, Tests, Security & AI impact checklist, Docs/ADR updated. Squash merge. |
+| **Pull Requests** | Conventional Commits titles; template with Before/After, How, Tests, Security & AI impact checklist, Docs/ADR updated. Merge commits (or rebase); no squash merges, which the `main` ruleset enforces. |
 | **Branch protection** | `main`: PR required, 1 review (code owner), required checks, linear history, signed commits recommended, no force-push. |
 | **Actions** | CI per app (lint, type, test), catalog schema validation, AI evals (recorded fixtures on PR, live nightly), security (CodeQL, gitleaks, pip-audit, npm audit, Trivy), release (changelog + SBOM). |
 | **Releases** | SemVer; release-please or changesets; notes link to milestone, demo, ADRs. |

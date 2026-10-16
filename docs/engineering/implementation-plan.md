@@ -16,8 +16,8 @@
 |---|---|---|---|
 | 0.1 | Approve planning package (`docs/`) | Decisions log updated | ✅ |
 | 0.2 | Repo exists (public). Add Apache-2.0 `LICENSE` and `NOTICE`, README, governance files | Repo foundation | ✅ Q1 approved 2026-10-16; `LICENSE` in PR 1 |
-| 0.3 | Commit M0 docs into `docs/` + ADR-0001…016 as *Proposed* → *Accepted* | Docs PR | ✅ |
-| 0.4 | Labels, milestones, issue/PR templates, Project board, branch protection | GitHub setup | — |
+| 0.3 | Commit M0 docs into `docs/` + ADR-0001…016 as *Proposed* → *Accepted* | Docs PRs 1–4 (1–3 merged 2026-10-16); M1 ADR set accepted 2026-10-16, others *Proposed* | ✅ |
+| 0.4 | Labels, milestones, issue/PR templates, Project board, branch protection | GitHub setup. Templates (PR 1) and the `main` ruleset are done; labels, milestones and the Project board are pending | — |
 | 0.5 | Monorepo scaffold: `apps/api` (FastAPI hello + health), `apps/web` (Next.js shell), Docker Compose, Makefile | Runnable skeleton | — |
 | 0.6 | CI: lint/type/test for both apps, catalog schema job (empty), security scans, Dependabot | Green CI | — |
 | 0.7 | Catalog schemas v0 (risk, control, mapping, policy) + licensing notes | `catalog/schemas` | ✅ (catalog content policy) |

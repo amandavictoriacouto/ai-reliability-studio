@@ -33,7 +33,7 @@ Feature (user story) · Bug · ADR proposal · Product decision · Risk/threat �
 
 ## Pull requests
 
-Conventional Commit titles, PR template with Before/After, How, checklist and Security & AI impact section; squash merge; every PR closes at least one issue.
+Conventional Commit titles, PR template with Before/After, How, checklist and Security & AI impact section; merge commits, no squash (enforced by the `main` ruleset); every PR closes at least one issue.
 
 ## Branch protection (`main`)
 
